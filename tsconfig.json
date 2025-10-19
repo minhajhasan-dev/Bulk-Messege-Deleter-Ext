@@ -11,11 +11,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "types": ["vite/client"]
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src", "vite.config.ts", "tailwind.config.ts", "postcss.config.cjs", "*.d.ts"],
   "exclude": ["dist", "node_modules"]

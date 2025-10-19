@@ -31,12 +31,7 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:prettier/recommended',
   ],
-  plugins: [
-    '@typescript-eslint',
-    'react',
-    'react-hooks',
-    'import',
-  ],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'import/extensions': [
