@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Side Panel Toolkit",
+  "version": "0.1.0",
+  "description": "Chrome MV3 side-panel extension scaffold",
+  "permissions": ["storage", "sidePanel"],
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/*"],
+      "js": ["src/content/facebook/scanner.ts", "src/content/facebook/runner.ts"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.messenger.com/*"],
+      "js": ["src/content/messenger/scanner.ts", "src/content/messenger/runner.ts"],
+      "run_at": "document_idle"
+    }
+  ],
+  "host_permissions": [
+    "https://www.facebook.com/*",
+    "https://www.messenger.com/*"
+  ]
+}
