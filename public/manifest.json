@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Bulk Message Deleter",
+  "version": "0.1.0",
+  "description": "A utility extension scaffolded with Vite + React",
+  "action": {
+    "default_popup": "index.html"
+  }
+}
