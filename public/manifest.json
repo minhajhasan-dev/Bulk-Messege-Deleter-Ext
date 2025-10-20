@@ -2,8 +2,41 @@
   "manifest_version": 3,
   "name": "Bulk Message Deleter",
   "version": "0.1.0",
-  "description": "A utility extension scaffolded with Vite + React",
+  "description": "Scan, filter, and bulk-delete Facebook/Messenger conversations with resilient DOM automation.",
   "action": {
     "default_popup": "index.html"
-  }
+  },
+  "permissions": [
+    "storage",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://*.facebook.com/*",
+    "https://*.messenger.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.facebook.com/*",
+        "https://*.messenger.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "overlay.css"
+      ],
+      "matches": [
+        "https://*.facebook.com/*",
+        "https://*.messenger.com/*"
+      ]
+    }
+  ]
 }
