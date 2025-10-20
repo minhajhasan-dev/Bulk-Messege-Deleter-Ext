@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { onMessageAdd, onMessageRemove, sendMessage } from './extension/shared/extensionApi';
 
 type Filters = {
   fromDate?: string;
@@ -32,17 +33,17 @@ function useExtensionState() {
     const onMsg = (m: any) => {
       if (m?.type === 'state') setState(m.payload);
     };
-    if (typeof chrome !== 'undefined') chrome.runtime.onMessage.addListener(onMsg);
+    onMessageAdd(onMsg);
     (async () => {
       try {
-        const resp = await chrome.runtime.sendMessage({ type: 'getState' });
-        if (resp?.ok) setState(resp.state);
-      } catch (e) {
+        const resp = await sendMessage({ type: 'getState' });
+        if ((resp as any)?.ok) setState((resp as any).state);
+      } catch {
         // ignore when not in extension context
       }
     })();
     return () => {
-      if (typeof chrome !== 'undefined') chrome.runtime.onMessage.removeListener(onMsg);
+      onMessageRemove(onMsg);
     };
   }, []);
   return [state, setState] as const;
@@ -50,7 +51,7 @@ function useExtensionState() {
 
 async function bgMessage(type: string, payload?: any) {
   try {
-    return await chrome.runtime.sendMessage({ type, payload });
+    return await sendMessage({ type, payload });
   } catch (e) {
     return { ok: false, error: String((e as any)?.message || e) };
   }
